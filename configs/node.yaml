@@ -1,0 +1,34 @@
+# DVPN Node Configuration
+
+network:
+  listen_address: "0.0.0.0:8333"
+  max_peers: 50
+
+blockchain:
+  data_dir: "~/.dvpn/blockchain"
+  block_time: 15
+  max_block_size: 2097152
+
+mining:
+  enabled: true
+  miner_address: "DVPNtest123..."
+  gpu_backend: "cpu"
+  intensity: 18
+
+vpn:
+  enabled: false
+  interface: "dvpn0"
+  listen_port: 51820
+  max_clients: 10
+  bandwidth_limit: "100Mbps"
+  price_per_mb: 5
+  private_key: "IHB9QnCffOln7h2tnmKP03Ueipuy7n+wYtqewdgtJHI="
+
+api:
+  enabled: true
+  listen_address: "127.0.0.1:8334"
+  cors_enabled: true
+
+logging:
+  level: "info"
+  file: "~/.dvpn/logs/node.log"

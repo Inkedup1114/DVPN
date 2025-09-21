@@ -1,0 +1,19 @@
+network:
+  listen_address: "0.0.0.0:8333"
+  max_peers: 50
+
+mining:
+  enabled: true
+  miner_address: "NodeA-Miner"
+  gpu_backend: "cpu"
+
+vpn:
+  enabled: false
+
+api:
+  enabled: true
+  listen_address: "127.0.0.1:8334"
+  cors_enabled: true
+
+logging:
+  level: "info"

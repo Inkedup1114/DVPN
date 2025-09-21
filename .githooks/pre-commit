@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Lightweight pre-commit hook: run quick secret scan script and fail if potential secrets are found.
+echo "Running lightweight secret scan..."
+if scripts/git_secret_scan.sh | tee /tmp/git_secret_scan_out | egrep -i "POSSIBLE SECRET" >/dev/null; then
+  echo "Potential secret(s) detected in staged content. Inspect /tmp/git_secret_scan_out and fix or add exceptions." >&2
+  exit 1
+fi
+
+echo "Quick scan passed. Proceeding with commit."
+exit 0

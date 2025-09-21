@@ -26,6 +26,13 @@ func NewWireGuardClient(config *vpn.Config) (*WireGuardClient, error) {
 }
 
 func NewWireGuardClientWithRunner(config *vpn.Config, runner ExecRunner) (*WireGuardClient, error) {
+	if config == nil {
+		return nil, fmt.Errorf("config is nil")
+	}
+	if config.Interface == "" {
+		return nil, fmt.Errorf("interface name is required")
+	}
+
 	wgClient, err := wgctrl.New()
 	if err != nil {
 		return nil, fmt.Errorf("failed to create WireGuard client: %v", err)

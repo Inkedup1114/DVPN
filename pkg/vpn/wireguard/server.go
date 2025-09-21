@@ -44,6 +44,14 @@ func NewWireGuardServerWithRunner(config *vpn.Config, runner ExecRunner) (*WireG
 }
 
 func NewWireGuardServerWithDeps(config *vpn.Config, runner ExecRunner, wgclient WgClient) (*WireGuardServer, error) {
+	if config == nil {
+		return nil, fmt.Errorf("config is nil")
+	}
+	if config.Interface == "" {
+		return nil, fmt.Errorf("interface name is required")
+	}
+	// PrivateKey may be empty for tests or when interface is created later.
+
 	return &WireGuardServer{
 		config:    config,
 		clients:   make(map[string]*ClientInfo),

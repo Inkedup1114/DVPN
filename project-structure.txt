@@ -1,0 +1,24 @@
+dvpn-project/
+├── cmd/                    # Main applications
+│   ├── dvpnd/             # Full node daemon
+│   ├── dvpn-miner/        # Mining software
+│   ├── dvpn-cli/          # Command line interface
+│   └── dvpn-wallet/       # Wallet application
+├── pkg/                   # Public libraries
+│   ├── blockchain/        # Core blockchain logic
+│   ├── mining/            # Mining algorithms
+│   ├── vpn/              # VPN functionality
+│   ├── p2p/              # Peer-to-peer networking
+│   ├── crypto/           # Cryptographic functions
+│   └── config/           # Configuration management
+├── internal/              # Private application code
+│   ├── api/              # API handlers
+│   ├── db/               # Database interfaces
+│   └── rpc/              # RPC implementations
+├── proto/                 # Protocol buffer definitions
+├── scripts/              # Build and deployment scripts
+├── configs/              # Configuration files
+├── docs/                 # Documentation
+├── test/                 # Test files
+├── web/                  # Web interface
+└── third_party/          # External dependencies

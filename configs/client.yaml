@@ -1,0 +1,21 @@
+# DVPN Client Configuration
+
+network:
+  preferred_regions: ["us-east", "eu-west"]
+  max_price_per_mb: 10
+  min_bandwidth: 50  # Mbps
+  multi_hop: false
+
+wallet:
+  private_key_file: "~/.dvpn/keys/client.key"
+  auto_funding: true
+  channel_deposit: 100000  # satoshis
+
+routing:
+  exit_nodes_only: false
+  avoid_countries: ["CN", "RU"]
+  circuit_length: 3  # for multi-hop
+
+logging:
+  level: "info"
+  file: "~/.dvpn/logs/client.log"

@@ -1,0 +1,21 @@
+# DVPN Miner Configuration
+
+node:
+  rpc_address: "127.0.0.1:8334"
+  wallet_address: "DVPNxyz123..."
+
+gpu:
+  backend: "cuda"  # cuda, opencl, cpu
+  devices: [0, 1]  # GPU device IDs to use
+  intensity: 18
+  threads_per_block: 256
+  blocks_per_grid: 1024
+
+performance:
+  target_hashrate: 0  # 0 = unlimited
+  temperature_limit: 85  # Celsius
+  power_limit: 250  # Watts
+
+logging:
+  level: "info"
+  file: "~/.dvpn/logs/miner.log"

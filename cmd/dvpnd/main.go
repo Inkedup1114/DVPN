@@ -33,6 +33,11 @@ func main() {
 		cfg = getDefaultConfig()
 	}
 
+	// Validate VPN-related config early to fail fast on misconfiguration
+	if err := cfg.ValidateVPN(); err != nil {
+		log.Fatalf("invalid configuration: %v", err)
+	}
+
 	// Initialize blockchain
 	bc := blockchain.NewBlockchain()
 	latestBlock := bc.GetLatestBlock()
@@ -143,12 +148,18 @@ func main() {
 	if apiServer != nil {
 		shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer shutdownCancel()
-		apiServer.Stop(shutdownCtx)
+		if err := apiServer.Stop(shutdownCtx); err != nil {
+			log.Printf("API server stop error: %v", err)
+		}
 	}
 	if vpnServer != nil {
-		vpnServer.Stop()
+		if err := vpnServer.Stop(); err != nil {
+			log.Printf("VPN server stop error: %v", err)
+		}
 	}
-	p2pNet.Stop()
+	if err := p2pNet.Stop(); err != nil {
+		log.Printf("P2P network stop error: %v", err)
+	}
 
 	fmt.Printf("Final blockchain state: %d blocks\n", 1)
 	fmt.Println("Shutdown complete")

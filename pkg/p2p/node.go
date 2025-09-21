@@ -74,8 +74,7 @@ func NewP2PNetwork(listenAddr string, privateKey ed25519.PrivateKey) (*P2PNetwor
 	publicKey := privateKey.Public().(ed25519.PublicKey)
 
 	// Create local node ID from public key
-	var nodeID NodeID
-	nodeID = NodeID(fmt.Sprintf("%x", publicKey[:8]))
+	nodeID := NodeID(fmt.Sprintf("%x", publicKey[:8]))
 
 	localNode := &Node{
 		ID:        string(nodeID),

@@ -1,0 +1,19 @@
+network:
+  listen_address: "0.0.0.0:8433"
+  max_peers: 50
+
+mining:
+  enabled: false
+  miner_address: "NodeB-Miner"
+  gpu_backend: "cpu"
+
+vpn:
+  enabled: false
+
+api:
+  enabled: true
+  listen_address: "127.0.0.1:8435"
+  cors_enabled: true
+
+logging:
+  level: "info"

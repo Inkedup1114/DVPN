@@ -1,0 +1,58 @@
+### Go build ###
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with the -coverprofile flag
+*.out
+
+### Go workspace ###
+# If you have a vendor directory, you might want to ignore it when using modules
+vendor/
+
+### Project binaries and build artifacts ###
+/bin/
+/build/
+/dist/
+
+### WireGuard and system artifacts ###
+# local wg-quick and interface related files
+*.conf
+*.key
+
+### Configs / secrets ###
+# Ignore typical user-level config files that may contain secrets
+/.env
+/.env.local
+*.pem
+*.crt
+credentials.json
+
+### IDEs and editors ###
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+### OS files ###
+.DS_Store
+desktop.ini
+Thumbs.db
+
+### Logs and coverage ###
+/logs/
+*.log
+coverage.out
+
+### Misc ###
+node_modules/
+.cache/
+
+# Don't ignore these by default; uncomment if you want to ignore local generated configs
+# configs/*.yaml

@@ -121,3 +121,61 @@ Work completed (automated quick win)
 Notes:
 - These changes are low-risk and improve robustness by replacing application panics with returned errors and graceful handling. They also make the WireGuard components easier to mock and test.
 - Next recommended steps: add unit tests for the WireGuard wrappers (mock `wgctrl.Client`), add an interface to abstract system network operations (exec calls), and add config validation in `pkg/config/config.go` for VPN settings.
+
+Additional tasks discovered and next steps
+-----------------------------------------
+
+9) Secret scanning & CI
+   - Files: `.github/workflows/gitleaks.yml`, `scripts/git_secret_scan.sh`
+   - Rationale: ensure secrets are not accidentally committed and block PRs that introduce them.
+   - Priority: High
+   - Effort: Small
+   - Acceptance criteria:
+     - Add a gitleaks-based GitHub Action to scan PRs and pushes (done: `.github/workflows/gitleaks.yml`).
+     - Add a lightweight local scanner / script for additional heuristics (done: `scripts/git_secret_scan.sh`).
+
+10) Local config handling
+   - Files: `.gitignore`, `configs/example.node.yaml`
+   - Rationale: avoid committing private keys and local secrets.
+   - Priority: Medium
+   - Effort: Small
+   - Acceptance criteria:
+     - Ignore developer-local config overrides (added `configs/*.local.yaml` to `.gitignore`).
+     - Provide `configs/example.node.yaml` as a tracked example so devs can copy it to `configs/node.local.yaml`.
+
+11) Pre-commit / CI enforcement
+   - Files: `.github/workflows/gitleaks.yml`, optional `.husky` / pre-commit hook
+   - Rationale: prevent accidental commits of secrets and enforce lint/test on PRs.
+   - Priority: Medium
+   - Effort: Small
+   - Acceptance criteria:
+     - Add a pre-commit hook template or a GitHub Action that runs linters and gitleaks (CI workflow added for gitleaks; consider adding `golangci-lint` to CI).
+
+12) Finalize feature PR and QA
+   - Files: branch `feat/wireguard-di-tests-from-main`, `README.md` updates
+   - Rationale: ensure feature branch is based on `main`, tests pass, and PR description is ready for review.
+   - Priority: High
+   - Effort: Small
+   - Acceptance criteria:
+     - Resolve any remaining merge conflicts (done), push branch, and open draft PR (PR created).
+     - Update PR description with testing steps and checklists.
+
+13) Run full CI locally
+   - Files: repository root
+   - Rationale: exercise full pipeline locally before marking PR ready.
+   - Priority: Medium
+   - Effort: Small–Medium
+   - Acceptance criteria:
+     - Run `go vet`, `golangci-lint run`, `go test ./... -race` and fix issues.
+
+14) Optional: Purge sensitive data (if found)
+   - Files: repo history
+   - Rationale: if any secret is discovered in history, remove it and rotate keys.
+   - Priority: Urgent if a secret is found
+   - Effort: Small–Medium (depends on history depth)
+   - Acceptance criteria:
+     - Remove from history with `git filter-repo` or BFG and publish a forced, coordinated update.
+
+Notes:
+- The repository scan did not find obvious past secrets; gitleaks reported "no leaks found" locally. The `.gitignore` updates and GitHub Action should help prevent future accidental commits.
+- Consider adding a `CONTRIBUTING.md` entry describing the `configs/example.node.yaml` -> `configs/node.local.yaml` workflow for new devs.
